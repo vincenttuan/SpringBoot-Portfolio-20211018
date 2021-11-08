@@ -24,6 +24,36 @@
 			});
 		});
 		
+		$("#upt").on("click", function() {
+			var jsonObj = $('#myform').serializeObject();
+			var jsonStr = JSON.stringify(jsonObj);
+			console.log(jsonStr);
+			$.ajax({
+				url: "/portfolio/classify/" + jsonObj.id,
+				type: "PUT",
+				contentType: "application/json;charset=utf-8",
+				data: jsonStr,
+				cache: false,
+				processData: false,
+				success: function(resp) {
+					console.log(JSON.stringify(resp));
+					initPageSetup();
+				}
+			});
+		});
+		
+		$("#del").on("click", function() {
+			var id = $('#myform').find("#id").val();
+			$.ajax({
+				url: "/portfolio/classify/" + id,
+				type: "DELETE",
+				success: function(resp) {
+					console.log(JSON.stringify(resp));
+					initPageSetup();
+				}
+			});
+		});
+		
 		$("#myTable").on("click", "tr", function(){
 			var id = $(this).find('td').eq(0).text().trim();
 			console.log(id);
