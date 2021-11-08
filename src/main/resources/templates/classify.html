@@ -60,17 +60,30 @@
 			var url = "/portfolio/classify/" + id;
 			$.get(url, function(data, status) {
 				console.log(JSON.stringify(data));
+				$('#add').attr('disabled', true);
+				$('#upt').attr('disabled', false);
+				$('#del').attr('disabled', false);
+				$('#myform').trigger('reset'); // 表單內容清空（重置）
+				
 				$("#myform").find("#id").val(data.id);
 				$("#myform").find("#name").val(data.name);
 				$("#myform").find("#tx").prop('checked', data.tx);
 			});
 		});
 		
+		$("#rst").on("click", function() {
+			initPageSetup();		
+		});
 		
+		// 網頁載入完成後所執行的第一個程式
 		initPageSetup();
 	});
 	
 	function initPageSetup() {
+		$('#add').attr('disabled', false);
+		$('#upt').attr('disabled', true);
+		$('#del').attr('disabled', true);
+		$('#myform').trigger('reset'); // 表單內容清空（重置）
 		table_list();
 	}
 	
