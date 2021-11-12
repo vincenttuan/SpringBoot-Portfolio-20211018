@@ -16,7 +16,6 @@
                         type: "PUT",
                         contentType: "application/json; charset=utf-8",
                         data: jsonStr,
-                        async: true,
                         cache: false,
                         processData: false,
                         success: function (resposeJsonObject) {
@@ -31,7 +30,6 @@
                         $.ajax({
                             url: "/portfolio/watch/" + session_watch_id + "/remove/" + tstock_id,
                             type: "DELETE",
-                            async: true,
                             cache: false,
                             processData: false,
                             success: function (resposeJsonObject) {
@@ -58,7 +56,6 @@
                         $.ajax({
                             url: "/portfolio/watch/" + session_watch_id + "/add/" + tstock_id,
                             type: "GET",
-                            async: true,
                             cache: false,
                             processData: false,
                             success: function (resposeJsonObject) {
