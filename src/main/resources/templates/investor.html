@@ -5,7 +5,7 @@
 <title>Investor 投資人</title>
 <th:block th:include="./include/header :: header"></th:block>
 <script>
-	
+			var session_investor_id = '[[${#session.getAttribute("investor_id")}]]';
             $(document).ready(function () {
                 $("#myTable").on("click", "tr", function () {
                     var id = $(this).find('td').eq(0).text().trim();
@@ -73,6 +73,11 @@
         		});
                 
                 // 登入 btn
+                $("#myTable").on("click", "tr td:nth-child(5)", function() {
+                	var investor_id = $(this).attr('investor_id');
+                	window.location.href = '/portfolio/page/investor?investor_id=' + investor_id;
+                });
+                
              	
              	// init page setup
         		initPageSetup();
@@ -92,13 +97,19 @@
                     console.log("Datas: " + datas);
                     $("#myTable tbody > tr").remove();
                     $.each(datas, function (i, item) {
-                        var html = '<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>';
+                    	var loginbtn_html = '';
+                    	if(session_investor_id != item.id) {
+                    		loginbtn_html = '<button type="button" class="btn btn-success">登入</button>';
+                    	}
+                        var html = '<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td><td investor_id="{4}">{5}</td></tr>';
                         
                         $('#myTable').append(String.format(html,
                                 item.id,
                                 item.username,
                                 item.email,
-                                item.balance
+                                item.balance,
+                                item.id,
+                                loginbtn_html
                                 ));
                     });
                 });
@@ -109,7 +120,7 @@
 	<th:block th:include="./include/navbar :: navbar"></th:block>
 	<div class="container">
 		<p />
-		<h1><img width="40" th:src="@{/images/user.png}"> Investor 投資人</h1>
+		<h1><img width="40" th:src="@{/images/user.png}"> Investor 投資人 </h1>
 		<form id="myform" class="form-horizontal">
 
 			<div class="form-group">
