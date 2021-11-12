@@ -31,5 +31,10 @@ public class PageController {
     public String getWatchPage() {
         return "watch";
     }
+    
+    @RequestMapping("/watchlist")
+    public String getWatchListPage() {
+        return "watchlist";
+    }
 	
 }

@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +15,8 @@ import com.example.demo.repository.TStockRepository;
 
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
+import yahoofinance.histquotes.HistoricalQuote;
+import yahoofinance.histquotes.Interval;
 
 @RestController
 @RequestMapping("/price")
@@ -51,5 +55,22 @@ public class PriceController {
 		
 		return list;
 	}
+	
+	@RequestMapping("/histquotes/{symbol:.+}")
+	public List<HistoricalQuote> queryHistoricalQuotes(@PathVariable("symbol") String symnol) {
+		List<HistoricalQuote> historicalQuotes = null;
+		try {
+			Calendar from = Calendar.getInstance(); 
+			Calendar to = Calendar.getInstance(); // 現在日期
+			from.add(Calendar.MONTH, -1);
+			Stock stock = YahooFinance.get(symnol);
+			historicalQuotes = stock.getHistory(from, to, Interval.DAILY);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return historicalQuotes;
+	}
+	
 	
 }
