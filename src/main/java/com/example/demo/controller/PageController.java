@@ -36,5 +36,10 @@ public class PageController {
     public String getWatchListPage() {
         return "watchlist";
     }
+    
+    @RequestMapping("/asset")
+    public String getAssetPage() {
+        return "asset";
+    }
 	
 }
