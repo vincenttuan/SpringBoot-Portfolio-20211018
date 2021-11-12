@@ -26,5 +26,10 @@ public class PageController {
     public String getTStockPage() {
         return "tstock";
     }
+    
+    @RequestMapping("/watch")
+    public String getWatchPage() {
+        return "watch";
+    }
 	
 }
